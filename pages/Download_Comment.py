@@ -142,7 +142,8 @@ def download_comments(video_id, api_key):
 
 
 # Fonction pour afficher les informations de la vidéo 
-def display_video_info(video_id, api_key):     
+def display_video_info(video_id, api_key):
+    api_key = api_key
     youtube = build('youtube', 'v3', developerKey=api_key)     
     video = youtube.videos().list(part="snippet,statistics", id=video_id).execute()      
     if not video['items']:         
