@@ -90,9 +90,10 @@ st.markdown(
 
 
 ######################## ################################################################################################################################################################################
-api_key=api_key
+
 # Fonction pour télécharger les commentaires 
-def download_comments(video_id, api_key):     
+def download_comments(video_id, api_key):  
+    api_key=api_key
     youtube = build('youtube', 'v3', developerKey=api_key)      
     box = [['Name', 'Comment', 'Time', 'Likes', 'Reply Count']]     
     data = youtube.commentThreads().list(part='snippet', videoId=video_id, maxResults='100', textFormat="plainText").execute()     
@@ -142,7 +143,8 @@ def download_comments(video_id, api_key):
 
 
 # Fonction pour afficher les informations de la vidéo 
-def display_video_info(video_id, api_key):     
+def display_video_info(video_id, api_key):    
+    api_key=api_key
     youtube = build('youtube', 'v3', developerKey=api_key)     
     video = youtube.videos().list(part="snippet,statistics", id=video_id).execute()      
     if not video['items']:         
@@ -222,7 +224,8 @@ def main():
     # Bouton submit pour récupérer les informations de la vidéo
     if st.button('Afficher les informations'):
         with st.spinner('Chargement des informations...'):
-            api_key = st.secrets['youtube']['api_key']
+            #api_key = st.secrets['youtube']['api_key']
+            api_key=api_key
             display_video_info(video_id, api_key)
 
             progress_text = "Operation in progress. Please wait."
@@ -236,7 +239,8 @@ def main():
     # Bouton de téléchargement des commentaires
     if st.button('Télécharger les commentaires'):
         with st.spinner('Téléchargement des commentaires...'):
-            api_key = st.secrets['youtube']['api_key']
+            #api_key = st.secrets['youtube']['api_key']
+            #api_key=api_key
             df_comments = download_comments(video_id, api_key)
             video_title = display_video_info(video_id, api_key)
 
